@@ -1,0 +1,118 @@
+body {
+	background-color: #F0F0F0;
+}
+
+#instructions {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+html * {
+	font-family: Helvetica;
+}
+#Calc_header {
+	text-align: center;
+}
+
+#submit {
+  width: 100px;
+  font-size: 125%;
+  cursor: pointer;
+}
+
+#inputs {
+  padding-left: 10px;
+  padding-right: 20px;
+  width: 48%;
+  min-width: 600px;
+  display: inline;
+  float: left;
+}
+
+#results {
+	padding-left: 10px;
+  width: 48%;
+  min-width: 600px;
+  display: inline;
+  float: left;
+}
+
+a {
+	color: #000066;
+}
+#download {
+ 	padding-left: 25px;
+}
+
+#cats_table {
+  width: 100%;
+  max-width: 900px;
+  table-layout: fixed;
+  display: block;
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+
+#cats_table th {
+  text-align: left;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+td.slider_title {
+  width: 30%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+td.slider {
+  width: 50%;
+}
+
+td.slider_input {
+  width: 20%;
+}
+
+td.slider_input input {
+  width: 100px;
+  height: 15px;
+}
+
+.graphcont {
+padding-top:0px;
+color:#000;
+font-weight:700;
+float:left
+}
+
+.graph {
+float:left;
+margin-top:0px;
+background: -webkit-linear-gradient(#7C7C7C, #ABABAB); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#7C7C7C, #ABABAB); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#7C7C7C, #ABABAB); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#7C7C7C, #ABABAB); /* Standard syntax */
+position:relative;
+width:280px;
+padding:0
+}
+
+.graph .bar {
+display:block;
+position:relative;
+background: -webkit-linear-gradient(#A2D84C, #66A701); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#A2D84C, #66A701); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#A2D84C, #66A701); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#A2D84C, #66A701); /* Standard syntax */
+border-right:#538e02 1px solid;
+text-align:center;
+color:#FFF;
+height:25px;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+line-height:1.9em
+}
+
+.graph .bar span {
+position:absolute;
+left:1em
+}
