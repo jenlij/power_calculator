@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+  <TITLE>Power Calculator Reference</TITLE>
+  <STYLE TYPE="text/css">@IMPORT URL("../styleCSG.css");</STYLE>
+</HEAD><BODY>
+
+<!--#include file="banner.inc" -->
+<!--#include file="top.inc" -->
+<!--#include file="submenu.inc" -->
+<!--#include file="topend.inc" -->
+
+<CENTER><H2>The CaTS Power Calculator</H2></CENTER>
+
+<P><B>CaTS</B> is a friendly tool that can carry out power calculations for genetic 
+association studies. CaTS can be used to estimate power for any genetic association study, but 
+is especially designed to 
+facilitate the design of two-stage genetic 
+association studies. This page describes in detail the parameters that <B>CaTS</B> requires 
+as input and the output it generates.</P>
+
+<H3>Sample Size</H3>
+
+<P>In this section, you should specify the total number of cases and controls available 
+for the study. In a one-stage design, all the cases and controls would be genotyped; in 
+a more cost-effective design only a fraction of the cases and controls would be genotyped initially and 
+the results from this preliminary analysis would be used to select markers to genotype in the remaining individuals.</P>
+
+<P><B>Cases</B>:    The number of cases available for the study. This will include both 
+cases to be genotyped in stage 1 and stage 2.</P>
+<P><B>Controls</B>:    The number of controls available for the study. This will include 
+both controls to be genotyped in stage 1 and stage 2.</P>
+
+<H3>Two Stage Design</H3>
+
+<P>This section allows you to specify design parameters for a two-stage study. In a 
+two-stage study, all the markers are examined in a fraction of the sample. Then, results of 
+this initial analysis are use to select a fraction of markers to be followed up in the 
+remainder of the sample.</P>
+
+<P><B>Samples Genotyped in Stage 1 (%)</B>: The proportion of samples genotyped in stage 1.  
+The number of cases and controls genotyped in stage 1 will be a function of the total 
+number of samples available (specified in the sample size section). For example, if you 
+have 1000 cases and 1000 controls and set this proportion to 30%, you should plan to 
+genotyped 300 cases and 300 controls in the stage 1. Using the notation developed in
+Skol et al. (2006), this value is &pi;<sub>samples</sub>.</P>
+
+<P><B>Markers Genotyped in Stage 2 (%)</B>: The percentage of markers that you plan to 
+follow-up in Stage 2.  Using the notation developed in Skol et al., this value is 
+&pi;<sub>markers</sub>. The power calculation assumes that you will test each marker for 
+association at the end of stage 1, and follow-up markers whose corresponding p-value is < 
+&pi;<sub>markers</sub> by genotyping them in the remaining cases and controls.
+
+<P><B>Significance level</B>: The desired false positive rate per marker.  If all M markers 
+are independent and you wish to maintain a genome-wide false postive rate of .05, 
+the per marker false positive rate should be .05/M.  In the Skol et al. paper this value 
+is denoted &alpha;<sub>marker</sub>.</P>
+
+<H2>Disease Model</H2>
+
+<P><B>Prevalence</B>: The disease prevalence. This is the probability that a randomly 
+sampled individual is affected by the disease.</P>
+
+<P><B>Disease Allele Frequency </B>: The frequency of the risk allele in the general 
+population. Usually, the allele will be a little more common in cases, and a little 
+rarer in contros.</P>
+
+<P><B>Genotype Relative Risk</B>: The definition of genotype relative risk (GRR) is depends on 
+the disease model. If <I>f<sub>0</sub></I>, <I>f<sub>1</sub></I>, <I>f<sub>2</sub></I> 
+are the probabilities of being affected for individuals with 0, 1, or 2 copies of the 
+risk allele, then GRR is defined as follows:</P> 
+<dl>
+	<dt><B>Multiplicative</B></dt> 
+        <dd>GRR = <I>f<sub>1</sub></I> / <I>f<sub>0</sub></I> = <I>f<sub>2</sub></I> / <I>f<sub>1</sub></I></li> </dt>
+	<dt><B>Additive</B></dt>
+        <dd>GRR = <I>f<sub>1</sub></I> / <I>f<sub>0</sub></I></dd>
+	<dt><B>Dominant</B></dt>
+        <dd>GRR = <I>f<sub>1</sub></I> / <I>f<sub>0</sub></I> = <I>f<sub>2</sub></I> / <I>f<sub>0</sub></I></li> </dd>
+	<dt><B>Recessive</B></dt>
+        <dd>GRR = <I>f<sub>2</sub></I> / <I>f<sub>0</sub></I> = <I>f<sub>2</sub></I> / <I>f<sub>1</sub></I></li> </dd>
+</dl>
+
+<P><H3>CaTS output</H3></P>
+<P><H4><i>Power Tab</i></H3></P>
+
+<P>This section displays estimated power for different analysis and genotyping strategies.</P>
+
+<P><B>One Stage Design</B>: Power attained when all samples are genotyped on all markers in a single stage</P>
+<P><B>Replication Analysis</B>: Power attained when stage 2 data is analyzed independently of the strength of 
+association in stage 1. Replication is deemed successful when the the two stages provide evidence for an effect in 
+same direction</P> 
+<P><B>Joint Analysis</B>: Power attained when test statistics from stage 1 and stage 2 are combined.</P>
+
+<P><H4><i>Thresholds Tab</i></H3></P>
+
+<P>This section displays suggested thresholds for association tests. These thresholds will ensure the user specified 
+type I error rate. At each stage, a z-statistic should be calculated to compare allele frequencies in cases and controls 
+(for example, as defined in Skol et al.). If desired, the statistic can be adjusted for population stratification using 
+Genomic Control or another appropriate strategy.
+
+<P><B>One Stage Design</B>: Critical value for two-sided test of association using a z-statistic and the marker-wise 
+false positive rate specified by Significance Level.</P>
+<P><B>Stage One Threshold</B>: This is the critical value that should be used when selecting markers for follow-up 
+genotyping in stage 2</P>
+<P><B>Replication Threshold</B>: Critical value to be used for stage 2 when using replication-based analysis.</P>
+<P><B>Joint Analysis Threshold</B>: Critical value to be use when test statistics from stage 1 and stage 2 are 
+combined.</P>
+
+<P><H4><i>Penetrances Tab</i></H3></P>
+
+This tab displays the probability that an individual will be affected for each marker genotype. It also displays the 
+<B>Attributable fraction</B>, which is the proportion of cases due to the effect of the disease predisposing locus, and 
+<B>Recurrance risk to siblings</B>, which is a factor summarizing the increase in risk to siblings of affected 
+individuals due to this locus.</P>
+
+<P><H4><i>Information Tab</i></H3></P>
+<P><B>Reduction in total genotyping required</B>: Number of genotypes saved when using the specified two-stage design 
+/ Number of genotyped performed in a one-stage design</P>
+<P><B>Case and Control allele frequency</B>: Risk allele frequency in cases and controls given the disease model</P>
+<P><B>Probability marker is followed up</B>: Probabillity a disease predisposing variant with the specified disease 
+model and parameters is selected for genotyping in stage 2
+given the specified two-stage design</P>
+
+<P><H4><i>Optimization Tab</i></H3></P>
+
+<P><B>Genotyping Cost Ratio</B>: Specifies the relative cost of genotypes generate in Stage 2 (typically, Stage 1 uses a massive 
+throughput platform with very low per genotype costs, whereas Stage 2 uses more customizable and expensive assays). If it costs 
+one penny to generate a genotype in stage 1 and 5 pennies to generate a genotype in stage 2, the cost ratio is $0.05 / $0.01 = 5.</P>
+
+<P><B>Target Power (%)</B>: This is the power you want to achieve for the two stage design, using joint analysis. It must be less
+than the power of the one-stage design, since two stage designs always lose a little power.  After pressing the <B>Optimize!</B> button, 
+the two-stage design that achieves Target Power at the lowest cost will be reported.</P>
+
+<P><B>Target Cost (%)</B>: This is the amount of funds available for genotyping, as a proportion of the cost for a one stage design. 
+For example, if the one stage design would cost $1 million, but you only have $400,000 available, set the target cost to 40%. 
+Pressing the Optimize! button will report the two-stage design that costs achieves the highest possible power for the target cost. </P>
+
+<P><B>Optimize! button</B>: When you click this button, the most cost effective design (for a Target Power) or the most power (for a 
+Target Cost) is reported. Optimization may take a few seconds, depending on the speed of your computer, so please be patient.</P>
+
+<!--#include file="bottom.inc"-->
+
+</BODY>
+</HTML>
+
+
