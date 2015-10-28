@@ -6,122 +6,16 @@
     <meta charset="utf-8">
     <title>CaTS Calculator</title>
     <link rel="stylesheet" type="text/css" href="css/form_cats.css">
+    <link rel="stylesheet" type="text/css" href="css/nouislider.css">
     <style type="text/css">@IMPORT URL("../styleCSG.css");</style>
     <style>
     .clear{
        clear:both;}
     </style>   
     <script type = "text/javascript" src = "javascript/jsCaTS.js"></script>
-
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script type = "text/javascript" src = "javascript/jquery.nouislider.all.js"></script>
-    <script type = "text/javascript" src = "javascript/jquery.nouislider.js"></script>
+    <script type = "text/javascript" src = "javascript/nouislider.js"></script>
     <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
-
-    <script type = "text/javascript">
-
-        $(document).ready(function(){
-            $('#cases_slider').noUiSlider({
-                start: 1000,
-                behaviour: 'tap',
-                connect: 'lower',
-                step: 10,
-                range: {
-                    'min':100, 
-                    '30%':1000,
-                    '70%':10000,
-                    'max':100000
-                },
-                format: wNumb({
-                    decimals: 0
-                })
-            });
-            $('#cases_slider').Link('lower').to($('#cases_input'));
-
-            $('#controls_slider').noUiSlider({
-                start: 1000,
-                behaviour: 'tap',
-                connect: 'lower',
-                step: 10,
-                range: {
-                    'min':100, 
-                    '30%':1000,
-                    '70%':10000,
-                    'max':100000
-                },
-                format: wNumb({
-                    decimals: 0
-                })
-            });
-            $('#controls_slider').Link('lower').to($('#controls_input'));
-
-            $('#sig_slider').noUiSlider({ 
-                start: 0.000007,
-                behaviour: 'tap',
-                connect: 'lower',
-                direction: 'rtl',
-                range: {
-                    'min':  1e-7, //range should be .9 to 1*10^-8 
-                    '15%':1e-6,
-                    '30%':1e-5,
-                    '45%':1e-4,
-                    '60%':1e-3,
-                    '75%':1e-2,
-                    '90%':1e-1,
-                    'max':  1
-                },
-                format: wNumb({
-                    decimals: 7,
-                })
-            });
-            $('#sig_slider').Link('lower').to($('#sig_input'));
-
-            $('#prev_slider').noUiSlider({
-                start: 0.1,
-                behaviour: 'tap',
-                connect: 'lower',
-                range: {
-                    'min':  0.001,
-                    'max':  1
-                },
-                format: wNumb({
-                    decimals:3
-                })
-            });
-            $('#prev_slider').Link('lower').to($('#prev_input'));
-
-            $('#allele_slider').noUiSlider({
-                start: 0.5,
-                behaviour: 'tap',
-                connect: 'lower',
-                range: {
-                    'min':  0,
-                    'max':  1
-                },
-                format: wNumb({
-                    decimals:3
-                })
-            });
-            $('#allele_slider').Link('lower').to($('#allele_input'));
-
-            $('#rr_slider').noUiSlider({
-                start: 1.5,
-                behaviour: 'tap',
-                connect: 'lower',
-                range: {
-                    'min':  1,
-                    'max':  10
-                },
-                format: wNumb({
-                    decimals:3
-                })
-            });
-            $('#rr_slider').Link('lower').to($('#rr_input'));
-    });
-    </script>
+    
 </head>
 <body>
 <!--#include file="banner.inc" -->
