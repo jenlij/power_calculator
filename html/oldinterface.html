@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang = "en">
+</html><!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8">
+    <title>CaTS Calculator</title>
+    <link rel="stylesheet" type="text/css" href="css/form_cats.css">
+    <style type="text/css">@IMPORT URL("../styleCSG.css");</style>
+    <style>
+    .clear{
+       clear:both;}
+    </style>   
+    <script type = "text/javascript" src = "javascript/jsCaTS.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type = "text/javascript" src = "javascript/jquery.nouislider.all.js"></script>
+    <script type = "text/javascript" src = "javascript/jquery.nouislider.js"></script>
+    <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
+
+    <script type = "text/javascript">
+
+        $(document).ready(function(){
+            $('#cases_slider').noUiSlider({
+                start: 1000,
+                behaviour: 'tap',
+                connect: 'lower',
+                step: 10,
+                range: {
+                    'min':100, 
+                    '30%':1000,
+                    '70%':10000,
+                    'max':100000
+                },
+                format: wNumb({
+                    decimals: 0
+                })
+            });
+            $('#cases_slider').Link('lower').to($('#cases_input'));
+
+            $('#controls_slider').noUiSlider({
+                start: 1000,
+                behaviour: 'tap',
+                connect: 'lower',
+                step: 10,
+                range: {
+                    'min':100, 
+                    '30%':1000,
+                    '70%':10000,
+                    'max':100000
+                },
+                format: wNumb({
+                    decimals: 0
+                })
+            });
+            $('#controls_slider').Link('lower').to($('#controls_input'));
+
+            $('#sig_slider').noUiSlider({ 
+                start: 0.000007,
+                behaviour: 'tap',
+                connect: 'lower',
+                direction: 'rtl',
+                range: {
+                    'min':  1e-7, //range should be .9 to 1*10^-8 
+                    '15%':1e-6,
+                    '30%':1e-5,
+                    '45%':1e-4,
+                    '60%':1e-3,
+                    '75%':1e-2,
+                    '90%':1e-1,
+                    'max':  1
+                },
+                format: wNumb({
+                    decimals: 7,
+                })
+            });
+            $('#sig_slider').Link('lower').to($('#sig_input'));
+
+            $('#prev_slider').noUiSlider({
+                start: 0.1,
+                behaviour: 'tap',
+                connect: 'lower',
+                range: {
+                    'min':  0.001,
+                    'max':  1
+                },
+                format: wNumb({
+                    decimals:3
+                })
+            });
+            $('#prev_slider').Link('lower').to($('#prev_input'));
+
+            $('#allele_slider').noUiSlider({
+                start: 0.5,
+                behaviour: 'tap',
+                connect: 'lower',
+                range: {
+                    'min':  0,
+                    'max':  1
+                },
+                format: wNumb({
+                    decimals:3
+                })
+            });
+            $('#allele_slider').Link('lower').to($('#allele_input'));
+
+            $('#rr_slider').noUiSlider({
+                start: 1.5,
+                behaviour: 'tap',
+                connect: 'lower',
+                range: {
+                    'min':  1,
+                    'max':  10
+                },
+                format: wNumb({
+                    decimals:3
+                })
+            });
+            $('#rr_slider').Link('lower').to($('#rr_input'));
+    });
+    </script>
+</head>
+<body>
+<!--#include file="banner.inc" -->
+<!--#include file="top.inc" -->
+<!--#include file="submenu.inc" -->
+<!--#include file="topend.inc" -->
+    
+<div id = "Calc_header">
+    <h1>CaTS Power Calculator</h1>
+</div>
+
+<div id="instructions">
+    <h2>Instructions</h2>
+    CaTS is an interactive power calculator for genetic association studies. Use the sliders and input boxes to set up your study design parameters and press submit. If the parameters correspond to a valid model, the probability of disease for each genotype, the expected disease allele frequencies for cases and controls, and the expected power for a one stage study will appear in the Results section. 
+    <br><br>
+    The calculations implemented in CaTS are described in <a href ='http://csg.sph.umich.edu/abecasis/publications/16415888.html' target="_blank">Skol et al. (2006).</a>
+</div>
+<hr></hr>
+<div id="container">
+
+<div id="inputs">
+  <h2>Inputs</h2>
+  <table id="cats_table">
+    <tr>
+      <th></th><th colspan="2">Sample Size</th>
+    </tr>
+    <tr>
+      <td class="slider_title">Cases</td>
+      <td class="slider">
+        <div id="cases_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="100" max="100000" step="1" id="cases_input">
+      </td>
+    </tr>
+    <tr>
+      <td class="slider_title">Controls</td>
+      <td  class="slider">
+        <div id="controls_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="100" max="100000" step="1" id="controls_input">
+      </td>
+    </tr>
+    <tr><td colspan="3"></td></tr>
+
+    <tr>
+      <th></th><th colspan="2">Design</th>
+    </tr>
+    <tr>
+      <td class="slider_title">Significance Level</td>
+      <td class="slider">
+        <div id="sig_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="0" max=".1" step="0.0000001" id="sig_input">
+      </td>
+    </tr>
+    <tr><td colspan="3"></td></tr>
+
+    <tr>
+      <th></th><th colspan="2">Disease Model (Multiplicative)</th>
+    </tr>
+    <tr>
+      <td class="slider_title">Prevalence</td>
+      <td class="slider">
+        <div id="prev_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="0" max="1" step=".01" id="prev_input">
+      </td>
+    </tr>
+    <tr>
+      <td class="slider_title">Disease Allele Frequency</td>
+      <td class="slider">
+        <div id="allele_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="0" max="1" step=".01" id="allele_input">
+      </td>
+    </tr>
+    <tr>
+      <td class="slider_title">Genotype Relative Risk</td>
+      <td class="slider">
+        <div id="rr_slider"></div>
+      </td>
+      <td class="slider_input">
+        <input type="number" min="0" max="10" step=".01" id="rr_input">
+      </td>
+    </tr>
+    <tr><td colspan="3"></td></tr>
+
+    <tr>
+      <td colspan="2"></td>
+      <td>
+        <button id="submit" type="button" onclick="javascript:callingcpp()">Submit</button>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+<div id="results">
+    <h2>Results</h2>
+    <div id="output">
+</div>
+
+</body>
+<!--#include file="bottom.inc"-->
+</html>
