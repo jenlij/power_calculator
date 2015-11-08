@@ -1,4 +1,4 @@
-$(document).ready(function(){
+           (function(){
 
             var cases_slider = document.getElementById('cases_slider');
             noUiSlider.create(cases_slider, {
@@ -10,7 +10,7 @@ $(document).ready(function(){
                 'min':100, 
                 '30%':1000,
                 '70%':10000,                  
-                'max':100000)
+                'max':100000
               },
               format: wNumb({
                 decimals:0
@@ -133,7 +133,7 @@ $(document).ready(function(){
               rr_slider.noUiSlider.set(this.value);
             });
 
-    });
+})();
 
 
 
@@ -151,12 +151,12 @@ function callingcpp(){
 
     $.ajax({
         type: "POST",
-	url: "ajax/phpscript.php",
+    url: "ajax/phpscript.php",
         data: {ncases:ncases, ncontrols:ncontrols, pisamples:pisamples, pimarkers:pimarkers,
             freq:freq, risk:risk, prevalence:prevalence,alpha:alpha},
         beforeSend:function(){},
         success:function(response){
-		 $('#output').html(response);
+         $('#output').html(response);
     },
         error:function(){}      
     })    
