@@ -1,4 +1,6 @@
-           (function(){
+
+(function(){
+
 
             var cases_slider = document.getElementById('cases_slider');
             noUiSlider.create(cases_slider, {
