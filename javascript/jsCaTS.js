@@ -1,4 +1,4 @@
-$(document).ready(function(){
+(function(){
 
             var cases_slider = document.getElementById('cases_slider');
             noUiSlider.create(cases_slider, {
@@ -10,7 +10,7 @@ $(document).ready(function(){
                 'min':100, 
                 '30%':1000,
                 '70%':10000,                  
-                'max':100000)
+                'max':100000
               },
               format: wNumb({
                 decimals:0
@@ -133,7 +133,7 @@ $(document).ready(function(){
               rr_slider.noUiSlider.set(this.value);
             });
 
-    });
+})();
 
 
 
