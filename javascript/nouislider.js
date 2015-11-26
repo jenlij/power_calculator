@@ -70,10 +70,10 @@
 		return typeof a === 'number' && !isNaN( a ) && isFinite( a );
 	}
 
-	// Rounds a number to 7 supported decimals.
+	// Rounds a number to 10 supported decimals. (previously 7)
 	function accurateNumber( number ) {
-		var p = Math.pow(10, 7);
-		return Number((Math.round(number*p)/p).toFixed(7));
+		var p = Math.pow(10, 10); //second number was 7
+		return Number((Math.round(number*p)/p).toFixed(10)); //tofixed was 7
 	}
 
 	// Sets a class and removes it after [duration] ms.
