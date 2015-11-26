@@ -1,7 +1,5 @@
 
 (function(){
-
-
             var cases_slider = document.getElementById('cases_slider');
             noUiSlider.create(cases_slider, {
               start:1000,
@@ -53,21 +51,26 @@
                start: 0.000007,
                 behaviour: 'tap',
                 connect: 'lower',
-                direction: 'rtl',
                 range: {
-                    'min':  1e-7, //range should be .9 to 1*10^-8 
-                    '15%':1e-6,
-                    '30%':1e-5,
-                    '45%':1e-4,
-                    '60%':1e-3,
-                    '75%':1e-2,
+                    'min':  1e-10, 
+                    '10%':1e-9,
+                    '20%':1e-8,
+                    '30%':1e-7,
+                    '40%':1e-6,
+                    '50%':1e-5,
+                    '60%':1e-4,
+                    '70%':1e-3,
+                    '80%':1e-2,
                     '90%':1e-1,
                     'max':  1
                 },
                 format: wNumb({
-                    decimals: 7,
+                    decimals: 10,
                 })
             });
+            //significant digits
+            //sig_input = sig_input.toFixed(Math.abs(Math.ceil(Math.log10(sig_input)))+2);
+
             sig_slider.noUiSlider.on('update', function(values, handle){
               sig_input.value = values[handle];
             });
