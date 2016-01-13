@@ -81,7 +81,7 @@ font-weight:700;
 float:left
 }
 
-.graph {
+.graph { /*grey background*/
 float:left;
 margin-top:0px;
 background: -webkit-linear-gradient(#7C7C7C, #ABABAB); /* For Safari 5.1 to 6.0 */
@@ -93,14 +93,14 @@ width:280px;
 padding:0
 }
 
-.graph .bar {
+.graph .bar { /*bar graph color green is #A2D84C, #66A701*/
 display:block;
-position:relative;
-background: -webkit-linear-gradient(#A2D84C, #66A701); /* For Safari 5.1 to 6.0 */
-background: -o-linear-gradient(#A2D84C, #66A701); /* For Opera 11.1 to 12.0 */
-background: -moz-linear-gradient(#A2D84C, #66A701); /* For Firefox 3.6 to 15 */
-background: linear-gradient(#A2D84C, #66A701); /* Standard syntax */
-border-right:#538e02 1px solid;
+position:relative; /*colors below are variants of navy blue*/
+background: -webkit-linear-gradient(#000066, #00274c); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#000066, #00274c); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#000066, #00274c); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#000066, #00274c); /* Standard syntax */
+border-right:#00274c 1px solid; /*538e02 */
 text-align:center;
 color:#FFF;
 height:25px;

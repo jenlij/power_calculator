@@ -254,9 +254,9 @@ var
 					filteredOptions[optionName] = false;
 				}
 
-			// Floating points in JS are stable up to 7 decimals.
+			// Floating points in JS are stable up to 7 decimals. **Changed to 11 by JJ 11/25/15**
 			} else if ( optionName === 'decimals' ) {
-				if ( optionValue >= 0 && optionValue < 8 ) {
+				if ( optionValue >= 0 && optionValue < 11 ) {
 					filteredOptions[optionName] = optionValue;
 				} else {
 					throw new Error(optionName);
