@@ -61,10 +61,10 @@
 	}
 	echo nl2br("\n");	
 	echo nl2br("\n");
-//	print "--------------------------------------------------";
-//	echo nl2br("\n");	
-//	echo nl2br("\n");
-//	print "Parameters in effect:";
-//        echo nl2br("\n"); 
-//        print "cases: ".$ncases.", controls: ".$ncontrols.", significance level: ".$alpha.", prevalence: ".$prevalence.", disease allele frequency: ".$freq.", genotype relative risk: ".$risk;
+	print "--------------------------------------------------";
+	echo nl2br("\n");	
+	echo nl2br("\n");
+	print "Parameters in effect:";
+        echo nl2br("\n"); 
+        print "cases: ".$ncases.", controls: ".$ncontrols.", significance level: ".$alpha.", prevalence: ".$prevalence.", disease allele frequency: ".$freq.", genotype relative risk: ".$risk;
 ?>
