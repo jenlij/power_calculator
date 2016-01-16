@@ -74,6 +74,7 @@
                     decimals: 10,
                 })
             });
+
             //slider to input
             sig_slider.noUiSlider.on('update', function(values, handle){
                 var val = parseFloat(values[handle]);
@@ -177,9 +178,9 @@ function callingcpp(){
     var alpha = sig_input.value;
     //var alpha = sig_slider.noUiSlider.get();
 
+
     //console.log(sig_input.value);
     //console.log(alpha);
- 
     
     // Uncomment this block and comment out the ajax call to mock server call/response in a local environment
     //console.log("Calling...");
