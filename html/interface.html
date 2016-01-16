@@ -2,6 +2,7 @@
 <html lang = "en">
 </html><!DOCTYPE html>
 <html lang = "en">
+
 <head>
     <meta charset="utf-8">
     <title>CaTS Calculator</title>
@@ -16,8 +17,24 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
     <script type = "text/javascript" src = "javascript/nouislider.js"></script>
     <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
+</head> 
+<!--header for local testing
+<head>
+    <meta charset="utf-8">
+    <title>CaTS Calculator</title>
+    <link rel="stylesheet" type="text/css" href="../css/form_cats.css">
+    <link rel="stylesheet" type="text/css" href="../css/nouislider.css">
+    <style type="text/css">@IMPORT URL("../styleCSG.css");</style>
+    <style>
+    .clear{
+       clear:both;}
+    </style> 
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script type = "text/javascript" src = "../javascript/nouislider.js"></script>
+    <script type = "text/javascript" src = "../javascript/wNumbUpdated6_21_15.js"></script>
+</head> -->
 
-</head>
 <body>
 <!--#include file="banner.inc" -->
 <!--#include file="top.inc" -->
@@ -25,17 +42,18 @@
 <!--#include file="topend.inc" -->
     
 <div id = "Calc_header">
-    <h1>CaTS Power Calculator</h1>
+    <h1><img src="../GWASiconJJ.jpg" alt="GWAS image" style="width:100px;height:100px;">
+      <div id = "headtitle">GWAS Power Calculator</div></h1>
 </div>
 
-<div id="instructions">
+<!--<div id="instructions">
     <h2>Instructions</h2>
     CaTS is an interactive power calculator for genetic association studies. Use the sliders and input boxes to set up your study design parameters and press submit. If the parameters correspond to a valid model, the probability of disease for each genotype, the expected disease allele frequencies for cases and controls, and the expected power for a one stage study will appear in the Results section. 
     <br><br>
     The calculations implemented in CaTS are described in <a href ='http://csg.sph.umich.edu/abecasis/publications/16415888.html' target="_blank">Skol et al. (2006).</a>
-</div>
-<h2><font color="red">Site under construction. Thanks for your patience!</font></h2>
-<hr></hr>
+</div>-->
+<!--<h2><font color="red">Site under construction. Thanks for your patience!</font></h2>-->
+<!--<hr></hr>-->
 <div id="container">
 
 <div id="inputs">
@@ -113,19 +131,21 @@
     <tr>
       <td colspan="2"></td>
       <td>
-        <button id="submit" type="button" onclick="javascript:callingcpp()">Submit</button>
+        <!--<button id="submit" type="button" onclick="javascript:callingcpp()">Submit</button>-->
       </td>
     </tr>
   </table>
 
 </div>
+</div>
 
 <div id="results">
     <h2>Results</h2>
-    <div id="output">
+    <div id="output"></div>
 </div>
 
 </body>
 <script type = "text/javascript" src = "javascript/jsCaTS.js"></script>
+<!--code for local testing <script type = "text/javascript" src = "../javascript/jsCaTS.js"></script>-->
 <!--#include file="bottom.inc"-->
 </html>
