@@ -1,5 +1,5 @@
-
 (function(){
+
             var cases_slider = document.getElementById('cases_slider');
             noUiSlider.create(cases_slider, {
               start:1000,
@@ -18,6 +18,9 @@
             });  
             cases_slider.noUiSlider.on('update', function(values, handle){
               cases_input.value = values[handle];
+            });
+            cases_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
             });
             cases_input.addEventListener('change', function(){
               cases_slider.noUiSlider.set(this.value);
@@ -40,7 +43,10 @@
                 })
             });
             controls_slider.noUiSlider.on('update', function(values, handle){
-              controls_input.value = values[handle];
+                controls_input.value = values[handle];
+            });
+            controls_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
             });
             controls_input.addEventListener('change', function(){
               controls_slider.noUiSlider.set(this.value);
@@ -68,14 +74,18 @@
                     decimals: 10,
                 })
             });
-            //significant digits
-            //sig_input = sig_input.toFixed(Math.abs(Math.ceil(Math.log10(sig_input)))+2);
-
+            //slider to input
             sig_slider.noUiSlider.on('update', function(values, handle){
-              sig_input.value = values[handle];
+                var val = parseFloat(values[handle]);
+                //2 significant digits
+                sig_input.value = val.toFixed(Math.abs(Math.ceil(Math.log10(val)))+2);
             });
+            sig_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
+            });
+            //input to slider
             sig_input.addEventListener('change', function(){
-              sig_slider.noUiSlider.set(this.value);
+                sig_slider.noUiSlider.set(this.value);
             });
 
             var prev_slider = document.getElementById('prev_slider');
@@ -93,6 +103,9 @@
             });
             prev_slider.noUiSlider.on('update', function(values, handle){
               prev_input.value = values[handle];
+            });
+            prev_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
             });
             prev_input.addEventListener('change', function(){
               prev_slider.noUiSlider.set(this.value);
@@ -114,6 +127,9 @@
             allele_slider.noUiSlider.on('update', function(values, handle){
               allele_input.value = values[handle];
             });
+            allele_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
+            });
             allele_input.addEventListener('change', function(){
               allele_slider.noUiSlider.set(this.value);
             });
@@ -134,13 +150,20 @@
             rr_slider.noUiSlider.on('update', function(values, handle){
               rr_input.value = values[handle];
             });
+            rr_slider.noUiSlider.on('set', function(){
+                startAjaxCountdown();
+            });
             rr_input.addEventListener('change', function(){
               rr_slider.noUiSlider.set(this.value);
             });
 
 })();
 
-
+var ajax_call = null;
+function startAjaxCountdown(){
+    clearTimeout(ajax_call);
+    ajax_call = setTimeout(callingcpp, 200);
+}
 
 function callingcpp(){
 
@@ -151,18 +174,28 @@ function callingcpp(){
     var freq = allele_slider.noUiSlider.get();
     var risk = rr_slider.noUiSlider.get();
     var prevalence = prev_slider.noUiSlider.get(); 
-    var alpha = sig_slider.noUiSlider.get();
+    var alpha = sig_input.value;
+    //var alpha = sig_slider.noUiSlider.get();
+
+    //console.log(sig_input.value);
+    //console.log(alpha);
  
+    
+    // Uncomment this block and comment out the ajax call to mock server call/response in a local environment
+    //console.log("Calling...");
+    //setTimeout(function(){ console.log("...response"); }, Math.floor(Math.random()*500)+20);
+    
 
     $.ajax({
         type: "POST",
-    url: "ajax/phpscript.php",
+        url: "ajax/phpscript.php",
         data: {ncases:ncases, ncontrols:ncontrols, pisamples:pisamples, pimarkers:pimarkers,
             freq:freq, risk:risk, prevalence:prevalence,alpha:alpha},
         beforeSend:function(){},
         success:function(response){
-         $('#output').html(response);
-    },
+            $('#output').html(response);
+        },
         error:function(){}      
-    })    
-    }
+    });
+
+}
