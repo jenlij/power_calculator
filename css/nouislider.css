@@ -83,7 +83,7 @@
 	box-shadow: inset 0 1px 1px #f0f0f0;
 }
 .noUi-connect {
-	background: #ffcb05; /*maize*/ /*#3FB8AF;*/
+	background:  #4CB5F5; /*blue sky*/ /*original color #3FB8AF*/
 	box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
 -webkit-transition: background 450ms;
 	transition: background 450ms;
