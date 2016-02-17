@@ -1,0 +1,121 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
+/*----- Toggle Button -----*/
+.toggle-nav {
+    display:none;
+}
+a {
+    text-decoration: none;
+} 
+/*----- Menu -----*/
+@media screen and (min-width: 860px) {
+    .menu {
+        width:65%;
+        padding:10px 18px 5px;
+        box-shadow:0px 0px 0px rgba(0,0,0,0.15);
+        border-radius:3px;
+        float: right;
+        font-family: "Raleway","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+    }
+}
+ 
+.menu ul {
+    display:inline-block;
+}
+ 
+.menu li {
+    margin:0px 50px 0px 0px;
+    float:left;
+    list-style:none;
+    font-size:17px;
+}
+ 
+.menu li:last-child {
+    margin-right:0px;
+}
+ 
+.menu a{
+    text-shadow:0px 0px 0px rgba(0,0,0,0.5);
+    color:#ffffff;
+    transition:color linear 0.15s;
+}
+ 
+.menu a:hover, .menu .current-item a {
+    color:#34675C;
+}
+  
+/*----- Responsive -----*/
+@media screen and (max-width: 1150px) {
+    .wrap {
+        width:70%;
+    }
+}
+ 
+ 
+@media screen and (max-width: 860px) {
+    .menu {
+        float:right;
+        font-family: "Raleway","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+        /*position:relative;*/
+        display:inline-block;
+    }
+
+    .menu ul.active {
+        display:none;
+    }
+ 
+    .menu ul {
+        width:150px;
+        position:absolute;
+        top:100%;
+        right:0px;
+        padding:10px 18px;
+        box-shadow:0px 0px 0px rgba(0,0,0,0.15);
+        border-radius:3px;
+        background:#B3C100;
+        z-index: 5;
+
+    }
+ 
+    .menu ul:after {
+        width:0px;
+        height:0px;
+        position:absolute;
+        top:0%;
+        right:29px;
+        content:'';
+        transform:translate(0%, -100%);
+        border-left:7px solid transparent;
+        border-right:7px solid transparent;
+        border-bottom:7px solid #B3C100;
+    }
+ 
+    .menu li {
+        margin:5px 0px 5px 0px;
+        float:none;
+        display:block;
+    }
+
+    .menu a{
+        display:block;
+    }
+
+    .toggle-nav {
+        padding:17px 25px 15px 20px;
+        float:right;
+        display:inline-block;
+        box-shadow:0px 0px 0px rgba(0,0,0,0.15);
+        border-radius:3px;
+        background:#4CB5F5;
+        text-shadow:0px 0px 0px rgba(0,0,0,0.5);
+        color:#ffffff;
+        font-size:25px;
+        transition:color linear 0.15s;
+        text-decoration: none;
+    }
+ 
+    .toggle-nav:hover, .toggle-nav.active {
+        text-decoration:none;
+        color:#34675C;
+    }
+ 
+}
