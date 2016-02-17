@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang = "en">
+</html><!DOCTYPE html>
+<html lang = "en">
+<!--
+<head>
+    <meta charset="utf-8">
+    <title>CaTS Calculator</title>
+    <link rel="stylesheet" type="text/css" href="css/form_cats.css">
+    <link rel="stylesheet" type="text/css" href="css/nouislider.css">
+    <style type="text/css">@IMPORT URL("../styleCSG.css");</style>
+    <style>
+    .clear{
+       clear:both;}
+    </style> 
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script type = "text/javascript" src = "javascript/nouislider.js"></script>
+    <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
+</head> -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Power Calculator</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="../css/nav_style.css">
+    <link rel="stylesheet" type="text/css" href="../css/nouislider.css">
+    <!--http://www.dwuser.com/education/content/quick-tip-adding-a-favicon-to-your-website/-->
+    <!--<style type="text/css">@IMPORT URL("../styleCSG.css");</style>-->
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script type = "text/javascript" src = "../javascript/nouislider.js"></script>
+    <script type = "text/javascript" src = "../javascript/wNumbUpdated6_21_15.js"></script>
+    <script type="text/javascript" src="../javascript/nav_jquery.js"></script>
+</head> 
+
+<body>
+<div id="banner">
+  <a href="http://csg.sph.umich.edu/abecasis/CaTS/calculator.html">
+  <img src="header.png" alt="header image" style="height:70px; vertical-align:middle; padding-left:13px">
+  </a>
+  <a class="toggle-nav" href="#">&#9776;</a>
+  <nav class="menu">
+    <ul class="active">
+        <li class="current-item">
+          <a href="#">Home</a>
+        </li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Tutorial</a></li>
+        <li><a href="#">Reference</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div id="container">
+  <div id="inputs">
+    <h3>Inputs</h3>
+    <div id="table">
+      <div class="row">
+       <span class="cell"></span>
+       <span class="cell section_title"><h4>Sample Size</h4></span>
+       <span class="cell"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Cases</span>
+        <span class="cell slider"><div id="cases_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="100" max="100000" step="1" id="cases_input"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Controls</span>
+        <span class="cell slider"><div id="controls_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="100" max="100000" step="1" id="controls_input"></span>
+      </div>
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell section_title"><h4>Study Design</h4></span>
+        <span class="cell"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Significance Level</span>
+        <span class="cell slider"><div id="sig_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="0" max="1" step="0.0000000001" id="sig_input"></span>
+      </div>
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell section_title"><h4>Disease Model (Multiplicative)</h4></span>
+        <span class="cell"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Prevalence</span>
+        <span class="cell slider"><div id="prev_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="0" max="1" step=".01" id="prev_input"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Disease Allele Frequency</span>
+        <span class="cell slider"><div id="allele_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="0" max="1" step=".01" id="allele_input"></span>
+      </div>
+      <div class="row">
+        <span class="cell slider_title">Genotype Relative Risk</span>
+        <span class="cell slider"><div id="rr_slider"></div></span>
+        <span class="cell slider_input"><input type="number" min="0" max="10" step=".01" id="rr_input"></span>
+      </div>
+    </div>
+  </div>
+  
+  <div id="graphs">
+    <h3>Graphs</h3>
+  </div>
+  <div id="results">
+    <h3>Results</h3>
+  </div>
+</div>
+
+
+
+
+
+</body>
+<!--<script type = "text/javascript" src = "javascript/jsCaTS.js"></script>-->
+<script type = "text/javascript" src = "../javascript/jsCaTS.js"></script>
+</html>
