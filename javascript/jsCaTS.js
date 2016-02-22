@@ -1,3 +1,4 @@
+/*slider code*/
 (function(){
 
             var cases_slider = document.getElementById('cases_slider');
@@ -160,13 +161,23 @@
 
 })();
 
+
+
+
+
 var ajax_call = null;
 function startAjaxCountdown(){
     clearTimeout(ajax_call);
-    ajax_call = setTimeout(callingcpp, 200);
+    ajax_call = setTimeout(callingcpp, 2);
 }
 
+var freshness = 1;
+var displayFreshness =1;
+
 function callingcpp(){
+
+    freshness = freshness + 1;
+    var thisRequest = freshness;
 
     var ncases = cases_slider.noUiSlider.get();
     var ncontrols = controls_slider.noUiSlider.get();
@@ -176,15 +187,10 @@ function callingcpp(){
     var risk = rr_slider.noUiSlider.get();
     var prevalence = prev_slider.noUiSlider.get(); 
     var alpha = sig_input.value;
-    //var alpha = sig_slider.noUiSlider.get();
-
-
-    //console.log(sig_input.value);
-    //console.log(alpha);
     
     // Uncomment this block and comment out the ajax call to mock server call/response in a local environment
-    //console.log("Calling...");
-    //setTimeout(function(){ console.log("...response"); }, Math.floor(Math.random()*500)+20);
+    console.log("Calling...");
+    setTimeout(function(){ console.log("...response"); }, Math.floor(Math.random()*500)+20);
     
 
     $.ajax({
@@ -194,7 +200,11 @@ function callingcpp(){
             freq:freq, risk:risk, prevalence:prevalence,alpha:alpha},
         beforeSend:function(){},
         success:function(response){
-            $('#output').html(response);
+
+            if (thisRequest > displayFreshness) {
+                displayFreshness = thisRequest;
+                $('#output').html(response);
+            }
         },
         error:function(){}      
     });
