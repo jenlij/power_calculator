@@ -1,5 +1,15 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
 /*----Style for calculator page----*/
+@-ms-viewport{
+    width: extend-to-zoom;
+    zoom: 1.0;
+}
+
+@viewport{
+    zoom: 1.0;
+    width: extend-to-zoom;
+}
+
 h3 {
   text-align: center;
   font-family: "Raleway", Helvetica, sans-serif;
@@ -119,38 +129,98 @@ text-align: center;
   box-shadow: 0 0  5px #B3C100;
 }
 
+/*results style*/
+#output {
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
 .graphcont {
-padding-top:0px;
-color:#000;
-font-weight:700;
-float:left
+  padding-top:0px;
+  color:#000;
+  font-weight:700;
+  float:left
 }
 
-.graph { /*bar graph grey background*/
-float:left;
-margin-top:0px;
-background-color: #B7B8B6;
-position:relative;
-width:280px;
-padding:0
+.graph1 { /*power bar graph grey background*/
+  float:left;
+  margin-top:0px;
+  background-color: #B7B8B6;
+  position:relative;
+  width:280px;
+  padding:0
 }
 
-.graph .bar { /*bar graph */
-display:block;
-position:relative; 
-background-color: #34675C;
-border-right:#34675C 1px solid; 
-text-align:center;
-color:#FFF;
-height:25px;
-font-family:Arial, Helvetica, sans-serif;
-font-size:12px;
-line-height:1.9em
+.graph1 .bar { /*power bar graph */
+  background-color: #4CB5F5;
+  border-right:#4CB5F5 1px solid; 
+  display:block;
+  position:relative;
+  text-align:center;
+  color:#FFF;
+  height:25px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  line-height:1.9em 
 }
 
-.graph .bar span {
-position:absolute;
-left:1em
+
+.graph2 { /*allele bar graph grey background*/
+  float:left;
+  margin-top:0px;
+  background-color: #B7B8B6;
+  position:relative;
+  width:280px;
+  padding:0
+}
+
+.graph2 .bar { /*allele bar graph */
+  background-color: #B3C100;
+  border-right:#B3C100 1px solid; 
+  display:block;
+  position:relative;
+  text-align:center;
+  color:#FFF;
+  height:25px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  line-height:1.9em 
+}
+
+.graph3 { /*prob bar graph grey background*/
+  float:left;
+  margin-top:0px;
+  background-color: #B7B8B6;
+  position:relative;
+  width:280px;
+  padding:0
+}
+
+.graph3 .bar { /*prob bar graph */
+  background-color: #34675C;
+  border-right:#34675C 1px solid;
+  display:block;
+  position:relative;
+  text-align:center;
+  color:#FFF;
+  height:25px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  line-height:1.9em 
+}
+
+.graph1 .bar span {
+  position:absolute;
+  left:1em
+}
+
+.graph2 .bar span {
+  position:absolute;
+  left:1em
+}
+.graph3 .bar span {
+  position:absolute;
+  left:1em
 }
 
 /* Remove input box spinners*/
