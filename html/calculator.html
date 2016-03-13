@@ -2,42 +2,43 @@
 <html lang = "en">
 </html><!DOCTYPE html>
 <html lang = "en">
-<!--
+
 <head>
     <meta charset="utf-8">
-    <title>CaTS Calculator</title>
-    <link rel="stylesheet" type="text/css" href="css/form_cats.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GAS Power Calculator</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/nav_style.css">
     <link rel="stylesheet" type="text/css" href="css/nouislider.css">
-    <style type="text/css">@IMPORT URL("../styleCSG.css");</style>
-    <style>
-    .clear{
-       clear:both;}
-    </style> 
+
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
     <script type = "text/javascript" src = "javascript/nouislider.js"></script>
     <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
-</head> -->
+    <script type="text/javascript" src="javascript/nav_jquery.js"></script>
 
+</head> 
+<!-- for local testing
 <head>
     <meta charset="utf-8">
-    <title>Power Calculator</title>
+    <title>GAS Power Calculator</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css"> 
     <link rel="stylesheet" type="text/css" href="../css/nav_style.css">
     <link rel="stylesheet" type="text/css" href="../css/nouislider.css">
-    <!--http://www.dwuser.com/education/content/quick-tip-adding-a-favicon-to-your-website/-->
-    <!--<style type="text/css">@IMPORT URL("../styleCSG.css");</style>-->
+   
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
     <script type = "text/javascript" src = "../javascript/nouislider.js"></script>
     <script type = "text/javascript" src = "../javascript/wNumbUpdated6_21_15.js"></script>
     <script type="text/javascript" src="../javascript/nav_jquery.js"></script>
-</head> 
 
+    <meta name="viewport" content="initial-scale=1">
+</head> 
+-->
 <body>
 <div id="banner">
   <a href="http://csg.sph.umich.edu/abecasis/CaTS/calculator.html">
-  <img src="header.png" alt="header image" style="height:70px; vertical-align:middle; padding-left:13px">
+  <img src="gaspc_logo.jpg" alt="header image" style="height:70px; vertical-align:middle; padding-left:13px">
   </a>
   <a class="toggle-nav" href="#">&#9776;</a>
   <nav class="menu">
@@ -109,6 +110,7 @@
   </div>
   <div id="results">
     <h3>Results</h3>
+    <div id="output"></div>
   </div>
 </div>
 
@@ -117,6 +119,6 @@
 
 
 </body>
-<!--<script type = "text/javascript" src = "javascript/jsCaTS.js"></script>-->
-<script type = "text/javascript" src = "../javascript/jsCaTS.js"></script>
+<script type = "text/javascript" src = "javascript/jsCaTS.js"></script> 
+<!-- for local testing <script type = "text/javascript" src = "../javascript/jsCaTS.js"></script>-->
 </html>
