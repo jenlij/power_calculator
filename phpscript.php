@@ -34,7 +34,7 @@
         echo '
         <table cellspacing="5">
         <tr>
-        <td>
+        <td width="25%">
             <strong>Expected power for a one stage study:</strong> 
         </td>
         <td>
