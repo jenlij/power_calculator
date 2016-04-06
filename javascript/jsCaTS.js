@@ -171,14 +171,22 @@ function startAjaxCountdown(){
     ajax_call = setTimeout(callingcpp, 2);
 }
 
-var freshness = 1;
-var displayFreshness =1;
+
+
+function clearOutput() {
+    $('#output').html("");
+}
+
+var ajaxRequest;
 
 function callingcpp(){
 
-    freshness = freshness + 1;
-    var thisRequest = freshness;
+    clearOutput();
 
+    if (typeof ajaxRequest == "object"){
+        ajaxRequest.abort();
+    }
+    
     var ncases = cases_slider.noUiSlider.get();
     var ncontrols = controls_slider.noUiSlider.get();
     var pisamples = 1
@@ -188,25 +196,34 @@ function callingcpp(){
     var prevalence = prev_slider.noUiSlider.get(); 
     var alpha = sig_input.value;
     
-    // Uncomment this block and comment out the ajax call to mock server call/response in a local environment
-    console.log("Calling...");
-    setTimeout(function(){ console.log("...response"); }, Math.floor(Math.random()*500)+20);
-    
-
-    $.ajax({
+    ajaxRequest = $.ajax({
         type: "POST",
         url: "ajax/phpscript.php",
-        data: {ncases:ncases, ncontrols:ncontrols, pisamples:pisamples, pimarkers:pimarkers,
-            freq:freq, risk:risk, prevalence:prevalence,alpha:alpha},
+        data: {ncases:ncases, 
+               ncontrols:ncontrols, 
+               pisamples:pisamples, 
+               pimarkers:pimarkers,
+               freq:freq, 
+               risk:risk, 
+               prevalence:prevalence,
+               alpha:alpha},
+        dataType: "JSON",       
         beforeSend:function(){},
         success:function(response){
-
-            if (thisRequest > displayFreshness) {
-                displayFreshness = thisRequest;
-                $('#output').html(response);
-            }
-        },
-        error:function(){}      
+            //updating progress bar size and display
+            $("#power_progress").html(response.power).attr("style","width:" + (parseFloat(response.power) * 100) + "%;");
+            $('#cases_progress').html(response.cases).attr("style","width:" + (parseFloat(response.cases) * 100) + "%;");
+            $('#controls_progress').html(response.controls).attr("style","width:" + (parseFloat(response.controls) * 100) + "%;");
+            $('#AA_freq').html(response.genotypeAA.frequency);
+            $('#AA_progress').html(response.genotypeAA.probability).attr("style","width:" + (parseFloat(response.genotypeAA.probability) * 100) + "%;");
+            $('#AB_freq').html(response.genotypeAB.frequency);
+            $('#AB_progress').html(response.genotypeAB.probability).attr("style","width:" + (parseFloat(response.genotypeAB.probability) * 100) + "%;");
+            $('#BB_freq').html(response.genotypeBB.frequency);
+            $('#BB_progress').html(response.genotypeBB.probability).attr("style","width:" + (parseFloat(response.genotypeBB.probability) * 100) + "%;");
+            },
+        error:function(response){
+            alert("Invalid parameters, please try again.");
+        }      
     });
 
 }
