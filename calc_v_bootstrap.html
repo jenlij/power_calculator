@@ -178,46 +178,41 @@
           <div class="col-md-4">Expected <strong>power</strong> for a one-stage study</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 96.9%;">0.969</div>
+            <div id="power_progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 96.9%;">0.969</div>
             </div>
           </div>
           <div class="col-md-12"><strong>Expected disease allele frequency</strong></div>
           <div class="col-md-4">Cases</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">0.600</div>
+            <div id="cases_progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">0.600</div>
             </div>
           </div>
           <div class="col-md-4">Controls</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48.9%;">0.489</div>
+            <div id="controls_progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48.9%;">0.489</div>
             </div>
           </div>
           <div class="col-md-12"><strong>Probability of disease</strong></div>
-          <div class="col-md-4">Genotype A/A [with frequency 0.250]</div>
+          <div class="col-md-4">Genotype A/A [with frequency <span id="AA_freq">0.250</span>]</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 14.4%;">14.4%</div>
+            <div id="AA_progress" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 14.4%;">14.4%</div>
             </div>
           </div>  
-          <div class="col-md-4">Genotype A/B [with frequency 0.500]</div>
+          <div class="col-md-4">Genotype A/B [with frequency <span id="AB_freq">0.500</span>]</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 9.6%;">9.6%</div>
+            <div id="AB_progress"class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 9.6%;">9.6%</div>
             </div>  
           </div>  
-          <div class="col-md-4">Genotype B/B [with frequency 0.250]</div>
+          <div class="col-md-4">Genotype B/B [with frequency <span id="BB_freq">0.250</span>]</div>
           <div class="col-md-8">
             <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 6.4%;">6.4%</div>
+            <div id="BB_progress"class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 6.4%;">6.4%</div>
             </div>
           </div>  
-          <div class="col-md-12">
-            <strong>Parameters in Effect</strong>
-            <p>cases: 1000, controls: 1000, significance level: 7.0E-6, prevalence: 0.1, disease allele frequency: 0.5, genotype relative risk: 1.5</p>
-          </div>
-
         </div>
       </div>
     </div> 
