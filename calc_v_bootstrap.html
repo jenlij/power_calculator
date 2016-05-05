@@ -2,7 +2,7 @@
 <html lang = "en">
 
 <head>
-    <title>GAS Power Calculator</title>
+    <title>GAS Power Calculator - Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,7 +18,7 @@
 
     </style>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type = "text/javascript" src = "javascript/nouislider.js"></script>
     <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
     <script type="text/javascript" src="javascript/nav_jquery.js"></script>
@@ -31,9 +31,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script>
-    $(function () { 
+    $(function () {
     $('#highcharts_graph').highcharts({
         chart: {
             type: 'scatter'
@@ -60,7 +60,7 @@
         },
         yAxis: {
             title: {
-                text: 'Statistical Power'  
+                text: 'Statistical Power'
             },
             max: 1
         },
@@ -71,7 +71,7 @@
     });
 });
   </script>
-</head> 
+</head>
 
 <body>
 <nav class="navbar navbar-default"> <!--navigation banner-->
@@ -159,9 +159,9 @@
               <div class="col-md-4 col-sm-4 col-xs-5"><input id="rr_input" type="number" class="form-control input-sm"></div>
             </div>
         </div>
-      </div> 
+      </div>
     </div>
-  
+
     <div class="col-md-6"> <!--graphs section-->
       <div class="panel panel-default" id="graphs">
         <div class="panel-heading"><h3 class="panel-title">Graphs</h3></div>
@@ -200,24 +200,24 @@
             <div class="progress">
             <div id="AA_progress" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 14.4%;">14.4%</div>
             </div>
-          </div>  
+          </div>
           <div class="col-md-4">Genotype A/B [with frequency <span id="AB_freq">0.500</span>]</div>
           <div class="col-md-8">
             <div class="progress">
             <div id="AB_progress"class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 9.6%;">9.6%</div>
-            </div>  
-          </div>  
+            </div>
+          </div>
           <div class="col-md-4">Genotype B/B [with frequency <span id="BB_freq">0.250</span>]</div>
           <div class="col-md-8">
             <div class="progress">
             <div id="BB_progress"class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 6.4%;">6.4%</div>
             </div>
-          </div>  
+          </div>
         </div>
       </div>
-    </div> 
+    </div>
   </div>
-</div> 
+</div>
 
 </body>
 
