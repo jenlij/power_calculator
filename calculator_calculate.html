@@ -25,6 +25,8 @@
     <script type = "text/javascript" src = "javascript/wNumbUpdated6_21_15.js"></script>
     <script type="text/javascript" src="javascript/nav_jquery.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap-select.css">
+    <script type = "text/javascript" src = "bootstrap-select.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -120,10 +122,27 @@
     <div class="col-md-6"> <!--graphs section-->
       <div class="panel panel-default" id="graphs">
         <div class="panel-heading"><h3 class="panel-title">Graphs</h3></div>
-        <div class="panel-body"><div id="highcharts_graph" style="width:100%; height:450px;"></div></div>
+        <div class="panel-body">
+          <div class="text-center" id="graph-title">Statistical Power vs.
+            <select class="selectpicker" id="x_graph" data-width="fit">
+                <optgroup label="Sample Size">
+                  <option value="Cases">Cases</option>
+                  <option value="Controls">Controls</option>
+                </optgroup>
+                <optgroup label="Study Design">
+                  <option value="Significance level">Significance level</option>
+                </optgroup>
+                <optgroup label="Disease Model">
+                  <option value="Prevalence">Prevalence</option>
+                  <option value="Disease Allele Frequency">Disease Allele Frequency</option>
+                  <option value="Genotype Relative Risk">Genotype Relative Risk</option>
+                </optgroup>
+              </select>
+          </div>
+          <div id="highcharts_graph" style="width:100%; height:450px;"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
   <div class="row"> <!--results section-->
     <div class="col-md-12">
