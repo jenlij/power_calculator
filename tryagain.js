@@ -406,10 +406,9 @@ function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
   }
 
   //find points
-  var i; var calc; var x=[]; var y=[]; var err; var testx=[]; var graphdata=[];
+  var i; var calc; var x=[]; var y=[]; var err; var testx=[]; var graphdata=[]; var graphtype;
   if(selectparam == "Cases"){
     testx = [100,125,150,200,250,300,350,400,450,500,600,700,800,900,1000,1250,1500,2000,3000,5000,7000,10000,20000,30000,50000,100000];
-    //ncases = selectparam;
     for (i=0; i < testx.length; i++) {
       calc = calculate(testx[i], ncontrols, freq, risk, prevalence, alpha);
       err = calc[9];
@@ -417,40 +416,92 @@ function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
       {
           continue;
       }
-      x[i] = testx[i];
-      y[i] = parseFloat(calc[0].toFixed(3));
-      graphdata[i] = [x[i],y[i]];
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
     }
-
+    graphtype = "logarithmic";
   }
   else if(selectparam == "Controls"){
     testx = [100,125,150,200,250,300,350,400,450,500,600,700,800,900,1000,1250,1500,2000,3000,5000,7000,10000,20000,30000,50000,100000];
-    //ncontrols = selectparam;
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(ncases, testx[i], freq, risk, prevalence, alpha);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
+    }
+    graphtype = "logarithmic";
   }
-  else if (selectparam == "Significance Level"){
-    testx = [1e-10,5.5e-10,1e-9,5.5e-9,1e-8,5.5e-8,1e-7,5.5e-7,1e-6,5.5e-6,1e-5,5.5e-5,1e-4,5.5e-4,1e-3,5.5e-3,1e-2,5.5e-2,1e-1,1];
-    //alpha = selectparam;
+  else if (selectparam == "Significance level"){
+    testx = [1e-10,5.5e-10,1e-9,5.5e-9,1e-8,5.5e-8,1e-7,5.5e-7,1e-6,7e-6,5.5e-6,1e-5,5.5e-5,1e-4,5.5e-4,1e-3,5.5e-3,1e-2,5.5e-2,1e-1,1];
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(ncases, ncontrols, freq, risk, prevalence, testx[i]);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
+    }
+    graphtype = "logarithmic";
   }
   else if (selectparam == "Prevalence"){
     testx = [0.001,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1];
-    //prevalence = selectparam;
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(ncases, ncontrols, freq, risk, testx[i], alpha);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
+    }
+    graphtype = "linear";
   }
-  else if (selectparam == "Disease Allele Frequency"){
-    testx = [0,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1];
-    //freq = selectparam;
+
+  else if (selectparam == "Disease Allele Frequency"){ //something off
+    testx = [0.001,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.99];
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(ncases, ncontrols, testx[i], risk, prevalence, alpha);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      q = true;
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
+    }
+    graphtype = "linear";
   }
   else if (selectparam == "Genotype Relative Risk"){
-    testx = [1,1.2,1.4,1.6,1.8,2,2.2,2.4,2.6,2.8,3,3.5,4,4.5,5,6,7,8,9,10];
-    //risk = selectparam;
+    testx = [1,1.2,1.4,1.5,1.6,1.8,2,2.2,2.4,2.6,2.8,3,3.5,4,4.5,5,6,7,8,9,10];
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(ncases, ncontrols, freq, testx[i], prevalence, alpha);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      x.push(testx[i]);
+      y.push(parseFloat(calc[0].toFixed(3)));
+      graphdata.push([x[i],y[i]]);
+    }
+    graphtype = "linear";
   }
 
-
-  //calculate points and create arrays
-  //adjust endpts for error handling (ie skip value if error)
-  //stop looping once power reaches 1, then calculate for endpoint if exists?
-
-
   //graph using highcharts api
+
   $('#highcharts_graph').highcharts({
       chart: {
           type: 'scatter',
@@ -472,7 +523,7 @@ function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
           title: {
             text: selectparam
           },
-          type: 'logarithmic'
+          type: graphtype
       },
       yAxis: {
           title: {
@@ -522,7 +573,7 @@ $("#x_graph").change(function () {
   graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam);
 })
 
-//stand-in graph for default parameters (*** Currently not accurate!!!!)
+//stand-in graph for default parameters
 $(function () {
   $('#highcharts_graph').highcharts({
       chart: {
@@ -561,7 +612,7 @@ $(function () {
 
       series: [{
           name: 'Cases',
-          data: [[100,0.075],[150,0.200],[200,0.357],[250,0.510],[300,0.636],[350,0.740],[400,0.815],[450,0.869],[500,0.907],[550,0.934],[600,0.953],[650,0.966],[700,0.975],[750,0.982],[800,0.986],[850,0.990],[900,0.992],[950,0.994],[1000,0.995],[5000,1],[50000,1],[100000,1]]
+          data: [[100,0.075],[125,0.131],[150,0.2],[200,0.357],[250,0.51],[300,0.639],[350,0.74],[400,0.815],[450,0.869],[500,0.907],[600,0.953],[700,0.975],[800,0.986],[900,0.992],[1000,0.995],[1250,0.999],[1500,0.999],[2000,1],[3000,1],[5000,1],[7000,1],[10000,1],[20000,1],[30000,1],[50000,1],[100000,1]]
       }]
   });
 })
