@@ -21,7 +21,7 @@
               cases_input.value = values[handle];
             });
             cases_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             cases_input.addEventListener('change', function(){
               cases_slider.noUiSlider.set(this.value);
@@ -47,7 +47,7 @@
                 controls_input.value = values[handle];
             });
             controls_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             controls_input.addEventListener('change', function(){
               controls_slider.noUiSlider.set(this.value);
@@ -83,7 +83,7 @@
                 sig_input.value = val.toFixed(Math.abs(Math.ceil(Math.log10(val)))+2);
             });
             sig_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             //input to slider
             sig_input.addEventListener('change', function(){
@@ -107,7 +107,7 @@
               prev_input.value = values[handle];
             });
             prev_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             prev_input.addEventListener('change', function(){
               prev_slider.noUiSlider.set(this.value);
@@ -130,7 +130,7 @@
               allele_input.value = values[handle];
             });
             allele_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             allele_input.addEventListener('change', function(){
               allele_slider.noUiSlider.set(this.value);
@@ -153,7 +153,7 @@
               rr_input.value = values[handle];
             });
             rr_slider.noUiSlider.on('set', function(){
-                calculate();
+                update();
             });
             rr_input.addEventListener('change', function(){
               rr_slider.noUiSlider.set(this.value);
@@ -327,18 +327,9 @@ function ndist(z, upper)
     return (upper) ? p : 1 - p;
 }
 
-//calculates all variables in results section and updates results section
+//calculates all variables
 //graphs power for selected variable
-function calculate() {
-
-  //get values from sliders
-    var ncases = cases_slider.noUiSlider.get();
-    var ncontrols = controls_slider.noUiSlider.get();
-    var freq = allele_slider.noUiSlider.get();
-    var risk = rr_slider.noUiSlider.get();
-    var prevalence = prev_slider.noUiSlider.get();
-    var alpha = sig_input.value;
-    var C = - ninv(alpha * 0.5);
+function calculate(ncases, ncontrols, freq, risk, prevalence, alpha) {
 
     // Genotype frequencies
     var p = [square(freq), 2 * freq * (1. - freq), square(1. - freq)];
@@ -347,7 +338,6 @@ function calculate() {
     var bb_freq = p[2];
 
     //genotype probabilities
-    //f[0] aaprob, f[1] abprob, f[2] bbprob
     var f = [risk * risk, risk, 1.0];
     var scale = prevalence / (f[0]*p[0] + f[1]*p[1] + f[2]*p[2]);
 
@@ -365,7 +355,7 @@ function calculate() {
         alert("I don't like the genetic model you requested!");
         return;
     }
-
+    var C = - ninv(alpha * 0.5);
     var pcases = (f[0] * p[0] + f[1] * p[1] * 0.5) / prevalence;
     var pcontrols = ( (1. - f[0]) * p[0] + (1. - f[1]) * p[1] * 0.5) / (1. - prevalence);
     var vcases = pcases * (1.0 - pcases);
@@ -373,62 +363,99 @@ function calculate() {
     var ncp = (pcases - pcontrols) / Math.sqrt( (vcases / ncases + vcontrols / ncontrols) * 0.5 );
     var P = ndist(-C - ncp, false) + ndist(C - ncp, true);
 
-    //update sliders
-    $("#power_progress").html(P.toFixed(3)).attr("style","width:" + (P * 100) + "%;");
-    $('#cases_progress').html(pcases.toFixed(3)).attr("style","width:" + (pcases * 100) + "%;");
-    $('#controls_progress').html(pcontrols.toFixed(3)).attr("style","width:" + (pcontrols * 100) + "%;");
-    $('#AA_freq').html(aa_freq.toFixed(3));
-    $('#AA_progress').html(aa_prob.toFixed(3)).attr("style","width:" + (aa_prob * 100) + "%;");
-    $('#AB_freq').html(ab_freq.toFixed(3));
-    $('#AB_progress').html(ab_prob.toFixed(3)).attr("style","width:" + (ab_prob * 100) + "%;");
-    $('#BB_freq').html(bb_freq.toFixed(3));
-    $('#BB_progress').html(bb_prob.toFixed(3)).attr("style","width:" + (bb_prob * 100) + "%;");
+    var results_array = [P, pcases, pcontrols, aa_freq, aa_prob, ab_freq, ab_prob, bb_freq, bb_prob];
 
-    //graphing section
-    //conditional or switch function assigning parameter to "graph_param" and relevant ranges
-    //calculate power range given parameter
-        //loop through 20 points for graph_param and calculate power for each one
-        //put points in arrays
+    return results_array;
+}
 
-    //graph using highcharts api
-    $('#highcharts_graph').highcharts({
-        chart: {
-            type: 'scatter'
-        },
-        plotOptions:{
-            scatter:{
-              lineWidth:2
-            }
-        },
-        title: {
-            text: 'Statistical Power with varying number of Cases',
-            x: -20 //center
-        },
-        subtitle: {
-            text: 'Constants: controls: 1000, significance level: 7.0E-6, prevalence: 0.1, disease allele frequency: 0.5, genotype relative risk: 1.5',
-            x: -20
-        },
-        xAxis: {
-            title: {
-              text: 'Cases'
-            },
-            type: 'logarithmic'
+//updates progress bar section
+function print(ncases, ncontrols, freq, risk, prevalence, alpha){
+  var a = calculate(ncases, ncontrols, freq, risk, prevalence, alpha);
+  var P = a[0]; var pcases = a[1]; var pcontrols =a[2]; var aa_freq = a[3];
+  var aa_prob = a[4]; var ab_freq = a[5]; var ab_prob = a[6]; var bb_freq = a[7]; var bb_prob = a[8];
+  $("#power_progress").html(P.toFixed(3)).attr("style","width:" + (P * 100) + "%;");
+  $('#cases_progress').html(pcases.toFixed(3)).attr("style","width:" + (pcases * 100) + "%;");
+  $('#controls_progress').html(pcontrols.toFixed(3)).attr("style","width:" + (pcontrols * 100) + "%;");
+  $('#AA_freq').html(aa_freq.toFixed(3));
+  $('#AA_progress').html(aa_prob.toFixed(3)).attr("style","width:" + (aa_prob * 100) + "%;");
+  $('#AB_freq').html(ab_freq.toFixed(3));
+  $('#AB_progress').html(ab_prob.toFixed(3)).attr("style","width:" + (ab_prob * 100) + "%;");
+  $('#BB_freq').html(bb_freq.toFixed(3));
+  $('#BB_progress').html(bb_prob.toFixed(3)).attr("style","width:" + (bb_prob * 100) + "%;");
+}
 
+//updates graph section
+//selectparam comes from select picker
+function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
+  //graphing section
+  //conditional or switch function assigning parameter to "graph_param" and relevant ranges
+  //calculate power range given parameter
+      //loop through 20 points for graph_param and calculate power for each one
+      //put points in arrays
+  //graph using highcharts api
+  $('#highcharts_graph').highcharts({
+      chart: {
+          type: 'scatter'
+      },
+      title:{
+          text:''
+          },
+      plotOptions:{
+          scatter:{
+            lineWidth:2
+          }
+      },
+      xAxis: {
+          title: {
+            text: selectparam
+          },
+          type: 'logarithmic'
+      },
+      yAxis: {
+          title: {
+              text: 'Statistical Power'
+          },
+          max: 1
+      },
+      legend: {
+            enabled: false
         },
-        yAxis: {
-            title: {
-                text: 'Statistical Power'
-            },
-            max: 1
-        },
-        series: [{
-            name: 'Cases',
-            data: [[10,0.000011997],[100,0.0146066],[200,0.134279],[300,0.350654],[400,0.562356],[500,0.720116],[600,0.82402],[700,0.888972],[800,0.928931],[900,0.95359],[1000,0.969],[5000,0.999946],[10000,0.99999],[100000,1]]
-        }]
-    });
+      series: [{
+          name: selectparam,
+          data: [[10,0.000011997],[100,0.0146066],[200,0.134279],[300,0.350654],[400,0.562356],[500,0.720116],[600,0.82402],[700,0.888972],[800,0.928931],[900,0.95359],[1000,0.969],[5000,0.999946],[10000,0.99999],[100000,1]]
+      }]
+  });
 
 }
 
+//updates both progress bar and graph sections. Called from sliders
+function update() {
+  //get values from sliders and x variable selection for graph
+  var ncases = cases_slider.noUiSlider.get();
+  var ncontrols = controls_slider.noUiSlider.get();
+  var freq = allele_slider.noUiSlider.get();
+  var risk = rr_slider.noUiSlider.get();
+  var prevalence = prev_slider.noUiSlider.get();
+  var alpha = sig_input.value;
+  var selectparam = $("#x_graph option:selected").val();
+  //update progress bars and graph
+  print(ncases, ncontrols, freq, risk, prevalence, alpha);
+  graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam);
+}
+
+//updates graph section when selectpicker in changed
+$("#x_graph").change(function () {
+  //get values from sliders and x variable selection for graph
+  var ncases = cases_slider.noUiSlider.get();
+  var ncontrols = controls_slider.noUiSlider.get();
+  var freq = allele_slider.noUiSlider.get();
+  var risk = rr_slider.noUiSlider.get();
+  var prevalence = prev_slider.noUiSlider.get();
+  var alpha = sig_input.value;
+  var selectparam = $("#x_graph option:selected").val();
+  //updates graph
+  graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam);
+})
 
 //stand-in graph for default parameters (*** Currently not accurate!!!!)
 $(function () {
@@ -436,18 +463,13 @@ $(function () {
       chart: {
           type: 'scatter'
       },
+      title:{
+        text:''
+        },
       plotOptions:{
           scatter:{
             lineWidth:2
           }
-      },
-      title: {
-          text: 'Statistical Power with varying number of Cases',
-          x: -20 //center
-      },
-      subtitle: {
-          text: 'Constants: controls: 1000, significance level: 7.0E-6, prevalence: 0.1, disease allele frequency: 0.5, genotype relative risk: 1.5',
-          x: -20
       },
       xAxis: {
           title: {
@@ -462,6 +484,9 @@ $(function () {
           },
           max: 1
       },
+      legend: {
+            enabled: false
+        },
       series: [{
           name: 'Cases',
           data: [[10,0.000011997],[100,0.0146066],[200,0.134279],[300,0.350654],[400,0.562356],[500,0.720116],[600,0.82402],[700,0.888972],[800,0.928931],[900,0.95359],[1000,0.969],[5000,0.999946],[10000,0.99999],[100000,1]]
