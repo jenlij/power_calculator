@@ -142,8 +142,9 @@
                 behaviour: 'tap',
                 connect: 'lower',
                 range: {
-                    'min':  1,
-                    'max':  10
+                    'min':1,
+                    '50%':3,
+                    'max':10
                 },
                 format: wNumb({
                     decimals:3
@@ -346,15 +347,18 @@ function calculate(ncases, ncontrols, freq, risk, prevalence, alpha) {
     f[1] *= scale;
     f[2] *= scale;
 
+    var error = false;
+
+    if (f[0] > 1.0)
+    {
+        //this will result in error
+        error = true;
+    }
+
     var aa_prob = f[0];
     var ab_prob = f[1];
     var bb_prob = f[2];
 
-    if (f[0] > 1.0)
-    {
-        alert("I don't like the genetic model you requested!");
-        return;
-    }
     var C = - ninv(alpha * 0.5);
     var pcases = (f[0] * p[0] + f[1] * p[1] * 0.5) / prevalence;
     var pcontrols = ( (1. - f[0]) * p[0] + (1. - f[1]) * p[1] * 0.5) / (1. - prevalence);
@@ -363,16 +367,20 @@ function calculate(ncases, ncontrols, freq, risk, prevalence, alpha) {
     var ncp = (pcases - pcontrols) / Math.sqrt( (vcases / ncases + vcontrols / ncontrols) * 0.5 );
     var P = ndist(-C - ncp, false) + ndist(C - ncp, true);
 
-    var results_array = [P, pcases, pcontrols, aa_freq, aa_prob, ab_freq, ab_prob, bb_freq, bb_prob];
+    var results_array = [P, pcases, pcontrols, aa_freq, aa_prob, ab_freq, ab_prob, bb_freq, bb_prob, error];
 
     return results_array;
 }
 
+
 //updates progress bar section
-function print(ncases, ncontrols, freq, risk, prevalence, alpha){
+function print(ncases, ncontrols, freq, risk, prevalence, alpha, error){
   var a = calculate(ncases, ncontrols, freq, risk, prevalence, alpha);
-  var P = a[0]; var pcases = a[1]; var pcontrols =a[2]; var aa_freq = a[3];
-  var aa_prob = a[4]; var ab_freq = a[5]; var ab_prob = a[6]; var bb_freq = a[7]; var bb_prob = a[8];
+  var P = a[0]; var pcases = a[1]; var pcontrols =a[2]; var aa_freq = a[3]; var aa_prob = a[4];
+  var ab_freq = a[5]; var ab_prob = a[6]; var bb_freq = a[7]; var bb_prob = a[8]; var error = a[9];
+
+  if (error){return;}
+
   $("#power_progress").html(P.toFixed(3)).attr("style","width:" + (P * 100) + "%;");
   $('#cases_progress').html(pcases.toFixed(3)).attr("style","width:" + (pcases * 100) + "%;");
   $('#controls_progress').html(pcontrols.toFixed(3)).attr("style","width:" + (pcontrols * 100) + "%;");
@@ -387,19 +395,74 @@ function print(ncases, ncontrols, freq, risk, prevalence, alpha){
 //updates graph section
 //selectparam comes from select picker
 function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
-  //graphing section
-  //conditional or switch function assigning parameter to "graph_param" and relevant ranges
-  //calculate power range given parameter
-      //loop through 20 points for graph_param and calculate power for each one
-      //put points in arrays
+  //check initial condition errors
+  var a = calculate(ncases, ncontrols, freq, risk, prevalence, alpha);
+  var error = a[9];
+
+  if (error)
+  {
+      alert("I don't like the genetic model you requested! \nPlease try different parameters");
+      return;
+  }
+
+  //find points
+  var i; var calc; var x=[]; var y=[]; var err; var testx=[]; var graphdata=[];
+  if(selectparam == "Cases"){
+    testx = [100,125,150,200,250,300,350,400,450,500,600,700,800,900,1000,1250,1500,2000,3000,5000,7000,10000,20000,30000,50000,100000];
+    //ncases = selectparam;
+    for (i=0; i < testx.length; i++) {
+      calc = calculate(testx[i], ncontrols, freq, risk, prevalence, alpha);
+      err = calc[9];
+      if (err)
+      {
+          continue;
+      }
+      x[i] = testx[i];
+      y[i] = parseFloat(calc[0].toFixed(3));
+      graphdata[i] = [x[i],y[i]];
+    }
+
+  }
+  else if(selectparam == "Controls"){
+    testx = [100,125,150,200,250,300,350,400,450,500,600,700,800,900,1000,1250,1500,2000,3000,5000,7000,10000,20000,30000,50000,100000];
+    //ncontrols = selectparam;
+  }
+  else if (selectparam == "Significance Level"){
+    testx = [1e-10,5.5e-10,1e-9,5.5e-9,1e-8,5.5e-8,1e-7,5.5e-7,1e-6,5.5e-6,1e-5,5.5e-5,1e-4,5.5e-4,1e-3,5.5e-3,1e-2,5.5e-2,1e-1,1];
+    //alpha = selectparam;
+  }
+  else if (selectparam == "Prevalence"){
+    testx = [0.001,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1];
+    //prevalence = selectparam;
+  }
+  else if (selectparam == "Disease Allele Frequency"){
+    testx = [0,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1];
+    //freq = selectparam;
+  }
+  else if (selectparam == "Genotype Relative Risk"){
+    testx = [1,1.2,1.4,1.6,1.8,2,2.2,2.4,2.6,2.8,3,3.5,4,4.5,5,6,7,8,9,10];
+    //risk = selectparam;
+  }
+
+
+  //calculate points and create arrays
+  //adjust endpts for error handling (ie skip value if error)
+  //stop looping once power reaches 1, then calculate for endpoint if exists?
+
+
   //graph using highcharts api
   $('#highcharts_graph').highcharts({
       chart: {
-          type: 'scatter'
+          type: 'scatter',
+          zoomType: 'x'
       },
       title:{
           text:''
-          },
+      },
+      subtitle: {
+        text: document.ontouchstart === undefined ?
+           'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+      },
       plotOptions:{
           scatter:{
             lineWidth:2
@@ -422,7 +485,7 @@ function graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam){
         },
       series: [{
           name: selectparam,
-          data: [[10,0.000011997],[100,0.0146066],[200,0.134279],[300,0.350654],[400,0.562356],[500,0.720116],[600,0.82402],[700,0.888972],[800,0.928931],[900,0.95359],[1000,0.969],[5000,0.999946],[10000,0.99999],[100000,1]]
+          data: graphdata
       }]
   });
 
@@ -438,6 +501,7 @@ function update() {
   var prevalence = prev_slider.noUiSlider.get();
   var alpha = sig_input.value;
   var selectparam = $("#x_graph option:selected").val();
+
   //update progress bars and graph
   print(ncases, ncontrols, freq, risk, prevalence, alpha);
   graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam);
@@ -453,6 +517,7 @@ $("#x_graph").change(function () {
   var prevalence = prev_slider.noUiSlider.get();
   var alpha = sig_input.value;
   var selectparam = $("#x_graph option:selected").val();
+
   //updates graph
   graph(ncases, ncontrols, freq, risk, prevalence, alpha, selectparam);
 })
@@ -461,11 +526,16 @@ $("#x_graph").change(function () {
 $(function () {
   $('#highcharts_graph').highcharts({
       chart: {
-          type: 'scatter'
+          type: 'scatter',
+          zoomType: 'x'
       },
       title:{
         text:''
-        },
+      },
+      subtitle: {
+        text: document.ontouchstart === undefined ?
+           'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+      },
       plotOptions:{
           scatter:{
             lineWidth:2
@@ -482,14 +552,16 @@ $(function () {
           title: {
               text: 'Statistical Power'
           },
+
           max: 1
       },
       legend: {
             enabled: false
         },
+
       series: [{
           name: 'Cases',
-          data: [[10,0.000011997],[100,0.0146066],[200,0.134279],[300,0.350654],[400,0.562356],[500,0.720116],[600,0.82402],[700,0.888972],[800,0.928931],[900,0.95359],[1000,0.969],[5000,0.999946],[10000,0.99999],[100000,1]]
+          data: [[100,0.075],[150,0.200],[200,0.357],[250,0.510],[300,0.636],[350,0.740],[400,0.815],[450,0.869],[500,0.907],[550,0.934],[600,0.953],[650,0.966],[700,0.975],[750,0.982],[800,0.986],[850,0.990],[900,0.992],[950,0.994],[1000,0.995],[5000,1],[50000,1],[100000,1]]
       }]
   });
 })
